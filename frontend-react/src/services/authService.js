@@ -2,7 +2,7 @@
 
 class AuthService {
   constructor() {
-    this.API_URL = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8080/api';
+    this.API_URL = process.env.REACT_APP_API_BASE_URL || '/api';
     console.log('AuthService initialized with API_URL:', this.API_URL);
     console.log('Environment REACT_APP_API_BASE_URL:', process.env.REACT_APP_API_BASE_URL);
   }
