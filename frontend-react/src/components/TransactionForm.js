@@ -62,8 +62,7 @@ function TransactionForm({ initialData, onSubmit, loading }) {
 
   const handleAddCategory = () => {
     if (newCategory.trim()) {
-      const updated = categoryService.addCategory(newCategory);
-      setCategories(updated);
+      categoryService.addCategory(newCategory);
       setFormData(prev => ({ ...prev, category: newCategory.charAt(0).toUpperCase() + newCategory.slice(1).toLowerCase() }));
       setNewCategory('');
       setShowNewCategory(false);
