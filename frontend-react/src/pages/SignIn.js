@@ -7,7 +7,7 @@ import '../styles/Auth.css';
 
 function SignIn() {
   const navigate = useNavigate();
-  const { login: setAuthUser } = useAuth();
+  useAuth();
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
@@ -58,7 +58,7 @@ function SignIn() {
     setLoading(true);
     setError(null);
     try {
-      const response = await authService.signUp({
+      await authService.signUp({
         fullName: formData.fullName,
         email: formData.email,
         password: formData.password

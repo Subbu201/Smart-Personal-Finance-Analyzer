@@ -7,7 +7,6 @@ import ErrorMessage from '../components/ErrorMessage';
 import '../styles/Dashboard.css';
 
 function CalendarPage() {
-  const { user } = useAuth();
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);

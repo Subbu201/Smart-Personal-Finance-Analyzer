@@ -33,11 +33,6 @@ const Analytics = ({ transactions = [] }) => {
   const [fromDate, setFromDate] = React.useState('');
   const [toDate, setToDate] = React.useState('');
 
-  const categoryTypes = {
-    income: ['Salary', 'Freelance', 'Investment', 'Bonus', 'Business'],
-    expense: ['Food', 'Transport', 'Entertainment', 'Shopping', 'Bills', 'Healthcare', 'Education', 'Utilities']
-  };
-
   // Filter transactions by date range
   const filteredTransactions = useMemo(() => {
     return transactions.filter(tx => {
@@ -188,9 +183,6 @@ const Analytics = ({ transactions = [] }) => {
       }
     }
   };
-
-  const totalExpense = Object.values(expenseCategoryBreakdown).reduce((sum, cat) => sum + cat.amount, 0);
-  const totalIncome = Object.values(incomeCategoryBreakdown).reduce((sum, cat) => sum + cat.amount, 0);
 
   return (
     <div className="analytics-container">

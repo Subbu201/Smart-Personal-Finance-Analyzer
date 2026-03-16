@@ -12,15 +12,11 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 
 function Dashboard() {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const [summary, setSummary] = useState(null);
-  const [monthlyData, setMonthlyData] = useState([]);
   const [categoryData, setCategoryData] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [editingId, setEditingId] = useState(null);
-  const [editData, setEditData] = useState({});
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
 
@@ -86,57 +82,7 @@ function Dashboard() {
     }
   };
 
-  const handleEdit = (transaction) => {
-    setEditingId(transaction.id);
-    setEditData({ ...transaction });
-  };
 
-  const handleCancelEdit = () => {
-    setEditingId(null);
-    setEditData({});
-  };
-
-  const handleSaveEdit = async (id) => {
-    try {
-      setLoading(true);
-      
-      await transactionService.updateTransaction(id, {
-        description: editData.description,
-        amount: parseFloat(editData.amount),
-        category: editData.category,
-        type: editData.type,
-        date: editData.date
-      });
-      
-      setEditingId(null);
-      setEditData({});
-      await fetchDashboardData();
-      await fetchTransactions();
-    } catch (err) {
-      setError(err.message || 'Failed to update transaction');
-      console.error('Error saving transaction:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleDeleteTransaction = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this transaction?')) return;
-    
-    try {
-      setLoading(true);
-      
-      await transactionService.deleteTransaction(id);
-      
-      await fetchDashboardData();
-      await fetchTransactions();
-    } catch (err) {
-      setError(err.message || 'Failed to delete transaction');
-      console.error('Error deleting transaction:', err);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchDashboardData = async () => {
     setLoading(true);
@@ -149,10 +95,6 @@ function Dashboard() {
       // Fetch chart data
       const chartData = await transactionService.getCharts();
       
-      // Process monthly data
-      const monthly = processMonthlyData(chartData.monthlyBreakdown || {});
-      setMonthlyData(monthly);
-
       // Process category data
       const categories = processCategories(chartData.categoryBreakdown || {});
       setCategoryData(categories);
@@ -235,16 +177,6 @@ function Dashboard() {
         borderRadius: 8
       }
     ]
-  };
-
-  const pieChart = {
-    labels: categoryData.labels || [],
-    datasets: [{
-      data: categoryData.data || [],
-      backgroundColor: COLORS,
-      borderColor: '#1f2937',
-      borderWidth: 2
-    }]
   };
 
   const chartOptions = {
