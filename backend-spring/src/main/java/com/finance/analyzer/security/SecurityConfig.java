@@ -34,7 +34,9 @@ public class SecurityConfig {
                 "http://localhost:3000",
                 "http://localhost:3001",
                 "http://localhost:3002",
-                "http://localhost:3003"));
+                "http://localhost:3003",
+                "http://localhost:8080",
+                "http://127.0.0.1:8080"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
@@ -55,6 +57,15 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/health").permitAll()
+                        .requestMatchers("/index.html").permitAll()
+                        .requestMatchers("/static/**").permitAll()
+                        .requestMatchers("/public/**").permitAll()
+                        .requestMatchers("/*.js").permitAll()
+                        .requestMatchers("/*.css").permitAll()
+                        .requestMatchers("/*.ico").permitAll()
+                        .requestMatchers("/*.png").permitAll()
+                        .requestMatchers("/*.jpg").permitAll()
+                        .requestMatchers("/*.svg").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(
                         new JwtAuthenticationFilter(tokenProvider),
@@ -63,4 +74,3 @@ public class SecurityConfig {
         return http.build();
     }
 }
-
