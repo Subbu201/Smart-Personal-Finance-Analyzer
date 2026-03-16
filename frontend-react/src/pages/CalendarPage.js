@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../context/AuthContext';
 import transactionService from '../services/transactionService';
 import Calendar from '../components/Calendar';
 import LoadingSpinner from '../components/LoadingSpinner';

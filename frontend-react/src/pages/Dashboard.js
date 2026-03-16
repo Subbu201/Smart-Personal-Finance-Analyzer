@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Line, Bar } from 'react-chartjs-2';
-import { useAuth } from '../context/AuthContext';
 import transactionService from '../services/transactionService';
 import LoadingSpinner from '../components/LoadingSpinner';
 import ErrorMessage from '../components/ErrorMessage';
@@ -13,7 +12,6 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarEleme
 function Dashboard() {
   const navigate = useNavigate();
   const [summary, setSummary] = useState(null);
-  const [categoryData, setCategoryData] = useState([]);
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -91,13 +89,6 @@ function Dashboard() {
       // Fetch summary
       const summaryData = await transactionService.getSummary();
       setSummary(summaryData);
-
-      // Fetch chart data
-      const chartData = await transactionService.getCharts();
-      
-      // Process category data
-      const categories = processCategories(chartData.categoryBreakdown || {});
-      setCategoryData(categories);
     } catch (err) {
       setError('Failed to load dashboard data');
       console.error(err);
@@ -105,30 +96,6 @@ function Dashboard() {
       setLoading(false);
     }
   };
-
-  const processMonthlyData = (data) => {
-    if (!data.labels) return [];
-    return data.labels.map((label, idx) => {
-      const income = data.income?.[idx] ?? 0;
-      const expense = data.expense?.[idx] ?? 0;
-      return {
-        month: label,
-        income: income,
-        expense: expense,
-        balance: income - expense
-      };
-    });
-  };
-
-  const processCategories = (data) => {
-    if (!data.labels) return [];
-    return {
-      labels: data.labels || [],
-      data: data.data || []
-    };
-  };
-
-  const COLORS = ['#8b5cf6', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#ef4444', '#06b6d4', '#f97316'];
 
   // Chart configurations
   const monthlyLineChart = {
