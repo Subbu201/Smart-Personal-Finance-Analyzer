@@ -1,6 +1,6 @@
 // Analytics/Charts Component - Focused on Categories
-import React, { useMemo, useState } from 'react';
-import { Pie, Bar, Doughnut } from 'react-chartjs-2';
+import React, { useMemo } from 'react';
+import { Bar, Doughnut } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -30,11 +30,10 @@ ChartJS.register(
 );
 
 const Analytics = ({ transactions = [] }) => {
-  const [customCategory, setCustomCategory] = useState('');
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
+  const [fromDate, setFromDate] = React.useState('');
+  const [toDate, setToDate] = React.useState('');
 
-  const DEFAULT_CATEGORIES = {
+  const categoryTypes = {
     income: ['Salary', 'Freelance', 'Investment', 'Bonus', 'Business'],
     expense: ['Food', 'Transport', 'Entertainment', 'Shopping', 'Bills', 'Healthcare', 'Education', 'Utilities']
   };

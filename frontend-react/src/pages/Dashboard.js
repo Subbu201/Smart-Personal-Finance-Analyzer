@@ -27,6 +27,7 @@ function Dashboard() {
   useEffect(() => {
     fetchDashboardData();
     fetchTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Filter transactions by date range

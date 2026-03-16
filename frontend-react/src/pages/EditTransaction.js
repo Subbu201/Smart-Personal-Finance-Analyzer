@@ -16,6 +16,7 @@ function EditTransaction() {
 
   useEffect(() => {
     fetchTransaction();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id]);
 
   const fetchTransaction = async () => {

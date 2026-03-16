@@ -19,13 +19,8 @@ function TransactionForm({ initialData, onSubmit, loading }) {
   );
 
   const [errors, setErrors] = useState({});
-  const [categories, setCategories] = useState([]);
   const [showNewCategory, setShowNewCategory] = useState(false);
   const [newCategory, setNewCategory] = useState('');
-
-  useEffect(() => {
-    setCategories(categoryService.getCategories());
-  }, []);
 
   useEffect(() => {
     if (initialData) {

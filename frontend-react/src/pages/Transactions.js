@@ -30,10 +30,12 @@ function Transactions() {
 
   useEffect(() => {
     fetchTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     filterTransactions();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchTerm, filterType, filterCategory, transactions]);
 
   const fetchTransactions = async () => {
