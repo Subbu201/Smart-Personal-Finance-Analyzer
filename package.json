@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "build": "npm install --prefix frontend-react && npm run build --prefix frontend-react && powershell -Command \"if (Test-Path 'backend-spring\\src\\main\\resources\\static') { Remove-Item 'backend-spring\\src\\main\\resources\\static' -Recurse -Force }\" && mkdir backend-spring\\src\\main\\resources\\static && xcopy frontend-react\\build backend-spring\\src\\main\\resources\\static /E /I /Y && cd backend-spring && mvn clean package -DskipTests",
+    "build": "npm install --prefix frontend-react && npm run build --prefix frontend-react && rm -rf backend-spring/src/main/resources/static && mkdir -p backend-spring/src/main/resources/static && cp -r frontend-react/build/* backend-spring/src/main/resources/static && cd backend-spring && mvn clean package -DskipTests",
     "start": "java -jar backend-spring/target/*.jar"
   },
     "keywords": [],
