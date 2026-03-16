@@ -1,0 +1,203 @@
+.table-container {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9ff 100%);
+  border-radius: 1rem;
+  box-shadow: 0 8px 24px rgba(102, 126, 234, 0.12);
+  overflow: hidden;
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.table-container.loading {
+  padding: 2rem;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.transaction-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+}
+
+.transaction-table th {
+  padding: 1.2rem 1rem;
+  text-align: left;
+  font-weight: 700;
+  color: white;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.transaction-table tbody tr {
+  border-bottom: 1px solid rgba(102, 126, 234, 0.08);
+  transition: all 0.3s ease;
+}
+
+.transaction-table tbody tr:hover {
+  background-color: rgba(102, 126, 234, 0.05);
+  transform: scale(1.01);
+  transform-origin: left;
+}
+
+.transaction-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.transaction-table td {
+  padding: 1rem;
+  color: #1f2937;
+}
+
+.cell-title {
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.cell-amount {
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.cell-type .badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badge-income {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0.1) 100%);
+  color: #10b981;
+  border: 1px solid #86efac;
+}
+
+.badge-expense {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+  color: #ef4444;
+  border: 1px solid #fca5a5;
+}
+
+.cell-category {
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.cell-date {
+  color: #9ca3af;
+  white-space: nowrap;
+  font-weight: 500;
+}
+
+.cell-description {
+  color: #9ca3af;
+  font-size: 0.9rem;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.cell-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.btn-action {
+  padding: 0.6rem;
+  border: none;
+  background-color: transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+}
+
+.btn-edit {
+  color: #3b82f6;
+}
+
+.btn-edit:hover {
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(59, 130, 246, 0.05) 100%);
+  transform: scale(1.1);
+}
+
+.btn-delete {
+  color: #ef4444;
+}
+
+.btn-delete:hover {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+  transform: scale(1.1);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #9ca3af;
+}
+
+.empty-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.empty-text {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+@media (max-width: 1024px) {
+  .transaction-table th,
+  .transaction-table td {
+    padding: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .cell-description {
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .transaction-table {
+    font-size: 0.85rem;
+  }
+
+  .transaction-table th,
+  .transaction-table td {
+    padding: 0.5rem;
+  }
+
+  .transaction-table th {
+    font-size: 0.7rem;
+  }
+
+  .cell-description {
+    display: none;
+  }
+
+  .cell-category {
+    display: none;
+  }
+
+  .cell-actions {
+    gap: 0.25rem;
+  }
+
+  .btn-action {
+    padding: 0.375rem;
+    font-size: 0.9rem;
+  }
+}
