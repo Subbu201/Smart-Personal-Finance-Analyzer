@@ -59,6 +59,9 @@ public class UserService {
             throw new ApiException("All fields are required");
         }
 
+        // Log email sending attempt for debugging
+        logger.info("Registration attempt for email: " + request.getEmail().trim().toLowerCase());
+
         if (request.getPassword().length() < 6) {
             throw new ApiException("Password must be at least 6 characters");
         }
@@ -77,9 +80,10 @@ public class UserService {
             if (LocalDateTime.now().isBefore(existing.getOtpExpiry())) {
                 boolean emailSent = emailService.sendOtpEmail(email, existing.getOtp());
                 if (!emailSent) {
-                    throw new ApiException("Failed to send OTP email. Please try again.");
+                    logger.severe("Failed to resend OTP email to: " + email);
+                    throw new ApiException("Failed to send OTP email. Please check your email address or try again later.");
                 }
-                logger.info("OTP resent for email: " + email);
+                logger.info("OTP resent successfully for email: " + email);
                 return new AuthResponse(
                         true,
                         "OTP resent. Check your email for verification code.",
@@ -109,10 +113,11 @@ public class UserService {
         boolean emailSent = emailService.sendOtpEmail(email, otp);
         if (!emailSent) {
             tempRegistrations.remove(email);
-            throw new ApiException("Failed to send OTP email. Please try again.");
+            logger.severe("Failed to send OTP email to: " + email);
+            throw new ApiException("Failed to send OTP email. Please check your email address or try again later.");
         }
 
-        logger.info("OTP sent for registration: " + email);
+        logger.info("OTP sent successfully for registration: " + email);
 
         return new AuthResponse(
                 true,
@@ -211,7 +216,7 @@ public class UserService {
     public AuthResponse login(LoginRequest request) throws ApiException {
 
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new ApiException("Invalid email or password"));
+                .orElseThrow(() -> new ApiException("Account not created"));
 
         logger.info("Login attempt for user: " + request.getEmail() + ", verified: " + user.getVerified());
 

@@ -1,13 +1,13 @@
 package com.finance.analyzer.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import java.util.logging.Logger;
 
 @Service
-
 public class EmailService {
 
     private static final Logger logger = Logger.getLogger(EmailService.class.getName());
@@ -16,6 +16,9 @@ public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Value("${app.mail.from:smartfinanceanalyzer@gmail.com}")
+    private String senderEmail;
 
     /**
      * Send OTP email with retry logic
@@ -47,7 +50,7 @@ public class EmailService {
         while (attempt < MAX_RETRIES) {
             try {
                 SimpleMailMessage message = new SimpleMailMessage();
-                message.setFrom("subbujan2007@gmail.com");
+                message.setFrom(senderEmail);
                 message.setTo(email);
                 message.setSubject(subject);
                 message.setText(body);
