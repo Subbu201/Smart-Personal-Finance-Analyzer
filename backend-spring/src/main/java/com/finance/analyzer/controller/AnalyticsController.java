@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping("/analytics")
+@RequestMapping("/api/analytics")
 @CrossOrigin(origins = { "http://localhost:3000", "http://localhost:3001",
         "http://localhost:3002" }, allowCredentials = "true")
 public class AnalyticsController {
