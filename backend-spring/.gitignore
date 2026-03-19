@@ -39,13 +39,3 @@ build/
 ### Application logs ###
 logs/
 *.log
-
-### Environment Variables ###
-.env
-.env.local
-.env.*.local
-
-### Sensitive Files ###
-*.key
-*.pem
-application-prod.properties
