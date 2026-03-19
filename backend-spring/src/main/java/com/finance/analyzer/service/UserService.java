@@ -81,7 +81,8 @@ public class UserService {
                 boolean emailSent = emailService.sendOtpEmail(email, existing.getOtp());
                 if (!emailSent) {
                     logger.severe("Failed to resend OTP email to: " + email);
-                    throw new ApiException("Failed to send OTP email. Please check your email address or try again later.");
+                    throw new ApiException(
+                            "Failed to send OTP email. Please check your email address or try again later.");
                 }
                 logger.info("OTP resent successfully for email: " + email);
                 return new AuthResponse(
